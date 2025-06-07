@@ -1,0 +1,335 @@
+# Professional LinkedIn Growth Agency Website - Replit React Prompt
+
+## Project Overview
+Create a complete, professional LinkedIn growth agency website called "SahaAakar" using React in Replit. This should be a single-page application with multiple routes, built with modern React practices, Tailwind CSS, and smooth animations.
+
+## Replit Setup Instructions
+
+### 1. Create New Replit Project
+- Go to Replit.com
+- Click "Create Repl"
+- Choose "React" template
+- Name your project "sahaAakar-linkedin-agency"
+
+### 2. Install Dependencies
+```bash
+npm install lucide-react
+```
+
+### 3. Project Structure
+```
+src/
+├── App.js (Main application with routing)
+├── components/
+│   ├── Header.js
+│   ├── Home/
+│   │   ├── HeroSection.js
+│   │   ├── FeaturesSection.js
+│   │   ├── TestimonialsSection.js
+│   │   └── PricingSection.js
+│   ├── About/
+│   │   └── AboutPage.js
+│   ├── Services/
+│   │   └── ServicesPage.js
+│   ├── Blog/
+│   │   └── BlogPage.js
+│   └── Contact/
+│       └── ContactPage.js
+├── index.js
+└── index.css (Tailwind imports)
+```
+
+## Technical Requirements
+
+### Core Technologies
+- **Framework**: React 18+ with functional components and hooks
+- **Styling**: Tailwind CSS (pre-configured in Replit React template)
+- **Icons**: Lucide React icons library
+- **State Management**: React useState and useEffect hooks
+- **Routing**: Custom router component (no external dependencies)
+- **Animations**: CSS transitions, transforms, and Tailwind animation classes
+- **Responsive**: Mobile-first responsive design
+
+## Design Requirements
+
+### Visual Design
+- **Color Scheme**: Primary blue (#2563eb), gradients from blue-600 to blue-800
+- **Typography**: Bold, modern font hierarchy with gradient text effects
+- **Layout**: Clean, professional layout with proper spacing
+- **Animations**: Smooth hover effects, transitions, and micro-interactions
+- **Shadows**: Subtle shadow effects for depth and professionalism
+
+### Responsive Design
+- Mobile-first approach
+- Breakpoints: sm (640px), md (768px), lg (1024px), xl (1280px)
+- Collapsible mobile navigation
+- Flexible grid layouts
+- Optimized touch targets for mobile
+
+## Page Structure & Content
+
+### 1. Header Component
+- Fixed header with scroll effect (transparent to white background)
+- Logo: "SahaAakar" with gradient text and "S" icon
+- Navigation: Home, About, Services, Blog, Contact
+- CTA buttons: Login and "Get Started"
+- Mobile hamburger menu with smooth transitions
+
+### 2. Home Page
+
+#### Hero Section
+- Compelling headline: "Grow Your LinkedIn Presence Like Never Before"
+- Subtitle about transforming LinkedIn profiles into powerful personal brands
+- Two CTA buttons: "Start Growing Today" and "Watch Demo"
+- Animated statistics counter: 10K+ Profiles Optimized, 500% Average Growth, 50K+ Connections Made, 95% Success Rate
+- Mockup LinkedIn profile card with rotation animation
+
+#### Features Section
+- 4-6 key features with icons (Profile Optimization, Content Strategy, Network Growth, etc.)
+- Each feature should have icon, title, description, and hover effects
+
+#### Testimonials Section
+- 3-4 customer testimonials with photos, names, and results
+- Carousel or grid layout with smooth transitions
+
+#### Pricing Section
+- 3 pricing tiers (Basic, Professional, Enterprise)
+- Feature comparisons with checkmarks
+- Clear pricing and CTA buttons
+
+### 3. About Page
+- Hero section with company mission
+- "Our Story" section with company background
+- Team section with 4 team members (names, roles, descriptions, emoji avatars)
+- Company values with icons (Results-Driven, Client-Centric, Innovation, Excellence)
+- Impact statistics in a highlighted section
+
+### 4. Services Page
+- Hero section with services overview
+- 6 service cards in grid layout:
+  1. Profile Optimization (₹4,999 one-time)
+  2. Content Strategy (₹7,999/month)
+  3. Networking Growth (₹6,999/month)
+  4. Analytics & Insights (₹3,999/month)
+  5. Personal Branding (₹12,999/3 months)
+  6. Enterprise Solutions (Contact for pricing)
+- Each service card should include: icon, title, description, feature list, pricing, CTA button
+- Process section with 4-step workflow
+
+### 5. Blog Page
+- Hero section with blog introduction
+- Search and filter functionality
+- Blog categories: LinkedIn Tips, Personal Branding, Networking, Content Strategy, Career Growth
+- 6 sample blog posts with: title, excerpt, author, date, read time, category
+- Featured post section
+- Grid layout for blog posts
+
+### 6. Contact Page
+- Hero section with contact information
+- Contact form with validation
+- Office locations and contact details
+- FAQ section
+- Social media links
+
+## Key Features to Implement
+
+### Animation Requirements
+- Smooth page transitions
+- Hover effects on buttons and cards
+- Scroll-triggered animations
+- Loading states and micro-interactions
+- Gradient backgrounds with subtle movement
+- Statistics counter animation
+- Image hover effects
+
+### Interactive Elements
+- Mobile-responsive navigation menu
+- Dropdown menus
+- Modal windows for demos
+- Form validation
+- Search functionality
+- Category filtering
+- Smooth scrolling
+- Back to top button
+
+### Content Guidelines
+
+#### Company Information
+- **Company Name**: SahaAakar
+- **Tagline**: "Grow Your LinkedIn Presence Like Never Before"
+- **Mission**: Transform LinkedIn profiles into powerful personal brands
+- **Founded**: 2020
+- **Clients Served**: 10,000+
+- **Average Growth**: 500%
+- **Success Rate**: 95%
+
+#### Team Members
+1. **Arjun Mehta** - Founder & CEO (LinkedIn expert, 8+ years experience)
+2. **Priya Singh** - Head of Strategy (Content strategist, Fortune 500 experience)
+3. **Ravi Kumar** - Growth Specialist (Data-driven growth hacker)
+4. **Neha Patel** - Content Director (Creative writer and storyteller)
+
+#### Service Pricing
+- Profile Optimization: ₹4,999 (One-time)
+- Content Strategy: ₹7,999/month
+- Networking Growth: ₹6,999/month
+- Analytics & Insights: ₹3,999/month
+- Personal Branding: ₹12,999/3 months
+- Enterprise Solutions: Custom pricing
+
+## Code Implementation Guidelines
+
+### 1. App.js Structure
+```javascript
+import React, { useState } from 'react';
+import Header from './components/Header';
+import HomePage from './components/Home/HomePage';
+import AboutPage from './components/About/AboutPage';
+// ... other imports
+
+function App() {
+  const [currentPage, setCurrentPage] = useState('/');
+  
+  const renderPage = () => {
+    switch(currentPage) {
+      case '/': return <HomePage />;
+      case '/about': return <AboutPage />;
+      case '/services': return <ServicesPage />;
+      case '/blog': return <BlogPage />;
+      case '/contact': return <ContactPage />;
+      default: return <HomePage />;
+    }
+  };
+
+  return (
+    <div className="App">
+      <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      {renderPage()}
+    </div>
+  );
+}
+
+export default App;
+```
+
+### 2. Component Requirements
+
+#### Header Component
+- Fixed position with scroll effects
+- Logo with gradient text
+- Navigation menu with active states
+- Mobile hamburger menu
+- CTA buttons
+
+#### Hero Section
+- Large gradient background
+- Compelling headline with gradient text
+- Animated statistics
+- Call-to-action buttons
+- Mockup illustration
+
+#### Features Section
+- Grid layout with 4-6 features
+- Icons from Lucide React
+- Hover effects and animations
+- Clear value propositions
+
+### 3. Styling Guidelines
+
+#### Tailwind Classes to Use
+- **Colors**: bg-blue-600, text-blue-800, from-blue-50, to-blue-100
+- **Gradients**: bg-gradient-to-r, bg-gradient-to-br, bg-clip-text
+- **Spacing**: py-20, px-4, space-y-8, gap-8
+- **Typography**: text-5xl, font-bold, leading-tight
+- **Shadows**: shadow-lg, shadow-2xl
+- **Animations**: hover:scale-105, transition-all, duration-300
+
+#### Custom CSS (if needed)
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn-primary {
+    @apply bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-200;
+  }
+  
+  .card-hover {
+    @apply hover:shadow-2xl hover:scale-105 transition-all duration-300;
+  }
+}
+```
+
+### 4. Performance Considerations
+- Lazy loading for images
+- Optimized React components
+- Minimal re-renders
+- Efficient state management
+- Smooth animations without janking
+
+## Quality Standards
+
+### Code Quality
+- Clean, readable React code
+- Proper component structure
+- Consistent naming conventions
+- Commented complex logic
+- Error handling
+
+### Design Quality
+- Professional, modern design
+- Consistent color scheme
+- Proper typography hierarchy
+- Excellent mobile responsiveness
+- Smooth user experience
+
+### Content Quality
+- Professional copywriting
+- Relevant industry terminology
+- Clear value propositions
+- Compelling calls-to-action
+- Realistic pricing and statistics
+
+## Testing Checklist
+
+### Functionality
+- [ ] All navigation links work
+- [ ] Mobile menu toggles correctly
+- [ ] Forms validate properly
+- [ ] Search and filter work
+- [ ] Animations are smooth
+- [ ] Responsive on all devices
+
+### Design
+- [ ] Consistent branding throughout
+- [ ] Professional appearance
+- [ ] Proper spacing and alignment
+- [ ] Readable typography
+- [ ] Accessible color contrast
+
+### Performance
+- [ ] Fast loading times
+- [ ] Smooth scrolling
+- [ ] No layout shifts
+- [ ] Efficient rendering
+
+## Deployment Notes
+- Ensure all dependencies are listed in package.json
+- Test thoroughly in Replit preview
+- Optimize images for web
+- Check cross-browser compatibility
+- Validate HTML and CSS
+
+## Success Criteria
+The final website should:
+1. Look and feel like a professional LinkedIn growth agency
+2. Be fully responsive and mobile-friendly
+3. Have smooth animations and interactions
+4. Include all required pages and sections
+5. Use modern React best practices
+6. Be ready for production deployment
+
+---
+
+**Final Note**: This website should demonstrate expertise in LinkedIn growth services through its professional design, compelling content, and smooth user experience. Every element should reinforce the brand's credibility and expertise in the LinkedIn marketing space.
