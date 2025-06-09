@@ -63,10 +63,16 @@ export default function Header() {
 
           {/* Desktop CTA Buttons */}
           <div className="hidden lg:flex items-center space-x-4">
-            <button className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
+            <button 
+              onClick={() => alert('Login functionality coming soon!')}
+              className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
+            >
               Login
             </button>
-            <button className="btn-primary">
+            <button 
+              onClick={() => handleNavClick('register')}
+              className="btn-primary"
+            >
               Get Started
             </button>
           </div>
@@ -101,10 +107,16 @@ export default function Header() {
                 </button>
               ))}
               <div className="pt-4 space-y-2">
-                <button className="block w-full text-left text-gray-700 hover:text-blue-600 font-medium transition-colors">
+                <button 
+                  onClick={() => alert('Login functionality coming soon!')}
+                  className="block w-full text-left text-gray-700 hover:text-blue-600 font-medium transition-colors"
+                >
                   Login
                 </button>
-                <button className="block w-full btn-primary">
+                <button 
+                  onClick={() => handleNavClick('register')}
+                  className="block w-full btn-primary"
+                >
                   Get Started
                 </button>
               </div>

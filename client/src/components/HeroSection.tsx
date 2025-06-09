@@ -2,9 +2,7 @@ import { Play } from 'lucide-react';
 import { useAnimatedCounter } from '../hooks/useAnimatedCounter';
 
 export default function HeroSection() {
-  const profilesCount = useAnimatedCounter(10000, 2000);
-  const growthPercentage = useAnimatedCounter(500, 2000, '%');
-  const connectionsCount = useAnimatedCounter(50000, 2000);
+  const profilesCount = useAnimatedCounter(100, 2000);
   const successRate = useAnimatedCounter(95, 2000, '%');
 
   return (
@@ -22,30 +20,21 @@ export default function HeroSection() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <button className="btn-primary">
+              <button 
+                onClick={() => window.location.href = '#/register'}
+                className="btn-primary"
+              >
                 Start Growing Today
-              </button>
-              <button className="btn-secondary flex items-center justify-center gap-2">
-                <Play className="w-5 h-5" />
-                Watch Demo
               </button>
             </div>
 
             {/* Animated Statistics */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 gap-6 max-w-md mx-auto">
               <div className="text-center animate-counter" style={{ animationDelay: '0.2s' }}>
-                <div className="text-3xl font-bold gradient-text">{profilesCount}</div>
+                <div className="text-3xl font-bold gradient-text">{profilesCount}+</div>
                 <div className="text-sm text-gray-600">Profiles Optimized</div>
               </div>
               <div className="text-center animate-counter" style={{ animationDelay: '0.4s' }}>
-                <div className="text-3xl font-bold gradient-text">{growthPercentage}</div>
-                <div className="text-sm text-gray-600">Average Growth</div>
-              </div>
-              <div className="text-center animate-counter" style={{ animationDelay: '0.6s' }}>
-                <div className="text-3xl font-bold gradient-text">{connectionsCount}</div>
-                <div className="text-sm text-gray-600">Connections Made</div>
-              </div>
-              <div className="text-center animate-counter" style={{ animationDelay: '0.8s' }}>
                 <div className="text-3xl font-bold gradient-text">{successRate}</div>
                 <div className="text-sm text-gray-600">Success Rate</div>
               </div>

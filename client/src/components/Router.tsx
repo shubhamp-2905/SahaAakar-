@@ -5,6 +5,7 @@ import AboutPage from '../pages/AboutPage';
 import ServicesPage from '../pages/ServicesPage';
 import BlogPage from '../pages/BlogPage';
 import ContactPage from '../pages/ContactPage';
+import RegistrationPage from '../pages/RegistrationPage';
 import { useRouter } from '../hooks/useRouter';
 import { useEffect, useState } from 'react';
 import { ArrowUp } from 'lucide-react';
@@ -38,6 +39,8 @@ export default function Router() {
         return <BlogPage />;
       case 'contact':
         return <ContactPage />;
+      case 'register':
+        return <RegistrationPage />;
       default:
         return <HomePage />;
     }
