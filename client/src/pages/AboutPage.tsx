@@ -180,22 +180,14 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 max-w-md mx-auto">
             <div className="text-center">
-              <div className="text-5xl font-bold text-yellow-400 mb-2">10,000+</div>
-              <div className="text-lg text-blue-100">Profiles Transformed</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold text-yellow-400 mb-2">500%</div>
-              <div className="text-lg text-blue-100">Average Growth Rate</div>
+              <div className="text-5xl font-bold text-yellow-400 mb-2">100+</div>
+              <div className="text-lg text-blue-100">Profiles Optimized</div>
             </div>
             <div className="text-center">
               <div className="text-5xl font-bold text-yellow-400 mb-2">95%</div>
-              <div className="text-lg text-blue-100">Client Success Rate</div>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold text-yellow-400 mb-2">4+</div>
-              <div className="text-lg text-blue-100">Years of Excellence</div>
+              <div className="text-lg text-blue-100">Success Rate</div>
             </div>
           </div>
         </div>

@@ -109,47 +109,41 @@ export default function ServicesPage() {
       {/* Services Grid */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {services.map((service, index) => (
               <div 
                 key={index}
-                className={`p-8 rounded-2xl transition-all duration-300 transform hover:scale-105 ${
-                  service.isEnterprise 
-                    ? 'bg-gradient-to-br from-blue-600 to-blue-800 text-white hover:shadow-2xl'
-                    : 'bg-gray-50 hover:shadow-xl hover:bg-white'
-                }`}
+                className="bg-gray-50 hover:shadow-xl hover:bg-white p-8 rounded-2xl transition-all duration-300 transform hover:scale-105"
               >
-                <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform ${
-                  service.isEnterprise ? 'bg-white/20' : 'bg-gradient-to-r from-blue-600 to-blue-800'
-                }`}>
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                   {service.icon}
                 </div>
-                <h3 className={`text-2xl font-bold mb-4 ${service.isEnterprise ? 'text-white' : 'text-gray-800'}`}>
+                <h3 className="text-2xl font-bold mb-4 text-gray-800">
                   {service.title}
                 </h3>
-                <p className={`mb-6 ${service.isEnterprise ? 'text-blue-100' : 'text-gray-600'}`}>
+                <p className="mb-6 text-gray-600">
                   {service.description}
                 </p>
                 
                 <div className="mb-6">
-                  <h4 className={`font-semibold mb-3 ${service.isEnterprise ? 'text-white' : 'text-gray-800'}`}>
+                  <h4 className="font-semibold mb-3 text-gray-800">
                     What's Included:
                   </h4>
-                  <ul className={`space-y-2 text-sm ${service.isEnterprise ? 'text-blue-100' : 'text-gray-600'}`}>
+                  <ul className="space-y-2 text-sm text-gray-600">
                     {service.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-center gap-2">
-                        <Check className={`w-4 h-4 ${service.isEnterprise ? 'text-green-400' : 'text-green-500'}`} />
+                        <Check className="w-4 h-4 text-green-500" />
                         {feature}
                       </li>
                     ))}
                   </ul>
                 </div>
                 
-                <div className={`border-t pt-6 ${service.isEnterprise ? 'border-white/20' : 'border-gray-100'}`}>
-                  <div className={`text-3xl font-bold mb-4 ${service.isEnterprise ? 'text-white' : 'gradient-text'}`}>
+                <div className="border-t border-gray-100 pt-6">
+                  <div className="text-3xl font-bold mb-4 gradient-text">
                     {service.price}
                   </div>
-                  <div className={`text-sm mb-4 ${service.isEnterprise ? 'text-blue-200' : 'text-gray-500'}`}>
+                  <div className="text-sm mb-4 text-gray-500">
                     {service.period}
                   </div>
                   <button 

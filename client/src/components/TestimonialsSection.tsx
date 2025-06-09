@@ -3,24 +3,24 @@ import { Star } from 'lucide-react';
 export default function TestimonialsSection() {
   const testimonials = [
     {
-      name: "Rahul Sharma",
-      role: "Software Engineer", 
-      initials: "RS",
-      text: "SahaAakar transformed my LinkedIn presence completely. Within 3 months, I received 5 job offers and increased my network by 400%. Their content strategy is simply outstanding!",
+      name: "Anonymous Client",
+      role: "Software Engineering Student", 
+      initials: "AC",
+      text: "SahaAakar helped me land my dream internship! My profile went from basic to professional, and recruiters started reaching out within weeks.",
       bgColor: "from-blue-600 to-blue-800"
     },
     {
-      name: "Anita Patel",
-      role: "Marketing Director",
-      initials: "AP", 
-      text: "As a marketing director, I needed to establish thought leadership. SahaAakar's team helped me become a recognized voice in the industry. My posts now get thousands of views!",
+      name: "Anonymous Client",
+      role: "Marketing Graduate",
+      initials: "AC", 
+      text: "I was struggling to get noticed by companies. After SahaAakar optimized my profile, I got interview calls from 3 top companies in just one month!",
       bgColor: "from-purple-600 to-purple-800"
     },
     {
-      name: "Vikram Kapoor",
-      role: "Business Consultant",
-      initials: "VK",
-      text: "The ROI from SahaAakar's services is incredible. I've generated over ₹50 lakhs in business directly from LinkedIn connections. Their approach is data-driven and effective.",
+      name: "Anonymous Client",
+      role: "Business Student",
+      initials: "AC",
+      text: "The content they created for me was amazing. My posts started getting hundreds of likes and comments. It really helped build my personal brand.",
       bgColor: "from-green-600 to-green-800"
     }
   ];
