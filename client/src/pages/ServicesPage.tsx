@@ -1,97 +1,69 @@
 import { UserCheck, Edit3, Users, BarChart3, Star, Building, Check } from 'lucide-react';
+import { useRouter } from '../hooks/useRouter';
 
 export default function ServicesPage() {
+  const { navigateTo } = useRouter();
+  
   const services = [
     {
       icon: <UserCheck className="w-6 h-6 text-white" />,
-      title: "Profile Optimization",
-      description: "Transform your LinkedIn profile into a powerful personal brand that attracts opportunities and connections.",
+      title: "🚀 Profile Optimization",
+      description: "Rewrite your bio, headline, and entire profile to make it recruiter-ready and connection-worthy.",
       features: [
-        "Professional headline optimization",
-        "Compelling summary creation", 
+        "Professional headline rewrite",
+        "Compelling bio creation", 
         "Experience section enhancement",
-        "Skills & endorsements strategy",
-        "Photo & banner optimization"
+        "Skills optimization",
+        "Photo & banner design"
       ],
-      price: "₹4,999",
-      period: "One-time payment",
+      price: "₹499",
+      period: "One-time",
       buttonText: "Get Started"
     },
     {
       icon: <Edit3 className="w-6 h-6 text-white" />,
-      title: "Content Strategy", 
-      description: "Develop and execute a content strategy that positions you as a thought leader in your industry.",
+      title: "🎨 Visual Branding", 
+      description: "Custom banners and color themes that make your profile pop — even at a glance.",
       features: [
-        "Weekly content creation (4 posts)",
-        "Content calendar planning",
-        "Industry trend analysis",
-        "Engagement optimization",
-        "Performance tracking"
+        "Custom banner design",
+        "Color theme creation",
+        "Visual identity guidelines",
+        "Profile photo optimization",
+        "Brand consistency check"
       ],
-      price: "₹7,999",
-      period: "Per month",
+      price: "₹749",
+      period: "Monthly",
       buttonText: "Get Started"
     },
     {
       icon: <Users className="w-6 h-6 text-white" />,
-      title: "Network Growth",
-      description: "Strategic networking approach to connect with industry leaders and potential collaborators.",
+      title: "✍️ Ghostwritten Posts",
+      description: "Don't know what to post? We'll write content that reflects you, gets reach, and builds credibility.",
       features: [
-        "Targeted connection strategies",
-        "Personalized outreach messages", 
-        "Relationship nurturing",
-        "Industry event recommendations",
-        "Weekly progress reports"
+        "4-12 custom posts per month",
+        "Industry-relevant content", 
+        "Engagement-optimized writing",
+        "Content calendar planning",
+        "Performance tracking"
       ],
-      price: "₹6,999",
-      period: "Per month",
+      price: "₹999",
+      period: "Monthly",
       buttonText: "Get Started"
     },
     {
       icon: <BarChart3 className="w-6 h-6 text-white" />,
-      title: "Analytics & Insights",
-      description: "Track your LinkedIn performance with detailed analytics and actionable insights.",
+      title: "📈 Growth Strategies",
+      description: "Connection building, engagement plans, and everything you need to grow — minus the guesswork.",
       features: [
-        "Performance tracking dashboard",
-        "Engagement analysis",
-        "Growth recommendations",
-        "Competitor analysis", 
-        "Monthly reports"
+        "Connection strategy",
+        "Engagement optimization",
+        "Network growth tactics",
+        "Analytics & insights", 
+        "Weekly progress reports"
       ],
-      price: "₹3,999",
-      period: "Per month",
+      price: "Included",
+      period: "With all plans",
       buttonText: "Get Started"
-    },
-    {
-      icon: <Star className="w-6 h-6 text-white" />,
-      title: "Personal Branding",
-      description: "Build a strong personal brand that differentiates you from competitors and attracts opportunities.",
-      features: [
-        "Brand strategy development",
-        "Visual identity creation",
-        "Thought leadership positioning",
-        "Content theme development",
-        "Brand voice definition"
-      ],
-      price: "₹12,999", 
-      period: "3-month package",
-      buttonText: "Get Started"
-    },
-    {
-      icon: <Building className="w-6 h-6 text-white" />,
-      title: "Enterprise Solutions",
-      description: "Comprehensive LinkedIn strategies for teams and organizations to enhance their collective presence.",
-      features: [
-        "Team training programs",
-        "Company page optimization",
-        "Employee advocacy programs",
-        "Dedicated account manager",
-        "Custom reporting dashboard"
-      ],
-      price: "Custom",
-      period: "Contact for pricing",
-      buttonText: "Contact Sales",
-      isEnterprise: true
     }
   ];
 
@@ -125,10 +97,10 @@ export default function ServicesPage() {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl font-bold text-gray-800 mb-6">
-              Our <span className="gradient-text">Services</span>
+              🔧 Our <span className="gradient-text">Services</span>
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed">
-              Comprehensive LinkedIn growth solutions designed to elevate your professional presence and achieve your career goals. From profile optimization to enterprise-level strategies, we have the expertise to transform your LinkedIn success.
+              We don't just edit LinkedIn profiles — we elevate them. Whether you're looking to land internships, connect with the right crowd, or build a standout digital identity, SahaAakar's got your back. Here's how we help you grow:
             </p>
           </div>
         </div>
@@ -180,11 +152,10 @@ export default function ServicesPage() {
                   <div className={`text-sm mb-4 ${service.isEnterprise ? 'text-blue-200' : 'text-gray-500'}`}>
                     {service.period}
                   </div>
-                  <button className={`w-full px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${
-                    service.isEnterprise 
-                      ? 'bg-white text-blue-600 hover:bg-blue-50'
-                      : 'bg-gradient-to-r from-blue-600 to-blue-800 text-white hover:shadow-lg'
-                  }`}>
+                  <button 
+                    onClick={() => navigateTo('register')}
+                    className="w-full px-6 py-3 rounded-lg font-semibold transition-all duration-200 bg-gradient-to-r from-blue-600 to-blue-800 text-white hover:shadow-lg"
+                  >
                     {service.buttonText}
                   </button>
                 </div>

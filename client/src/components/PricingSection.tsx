@@ -1,53 +1,54 @@
 import { Check } from 'lucide-react';
+import { useRouter } from '../hooks/useRouter';
 
 export default function PricingSection() {
+  const { navigateTo } = useRouter();
+  
   const plans = [
     {
-      name: "Starter",
-      price: "₹4,999",
+      name: "💫 Basic Plan",
+      price: "₹499",
       period: "One-time",
-      description: "Perfect for individuals starting their LinkedIn journey",
+      description: "Perfect for beginners who want a polished presence.",
       features: [
-        "Complete profile optimization",
-        "Professional headline & summary",
-        "Experience section enhancement", 
-        "Skills & endorsements strategy",
-        "Basic networking guidance"
+        "LinkedIn Bio rewrite",
+        "Headline optimization",
+        "1 Custom Banner Design"
       ],
       buttonText: "Get Started",
-      isPopular: false
+      isPopular: false,
+      id: "basic"
     },
     {
-      name: "Professional", 
-      price: "₹7,999",
-      period: "per month",
-      description: "Comprehensive growth solution for professionals",
+      name: "🌟 Standard Plan", 
+      price: "₹749",
+      period: "Monthly",
+      description: "Best for individuals ready to start building authority.",
       features: [
-        "Everything in Starter",
-        "Weekly content creation",
-        "Advanced networking strategy",
-        "Performance analytics", 
-        "Monthly strategy calls",
-        "Priority support"
+        "Full LinkedIn Profile Rewrite",
+        "4 Ghostwritten LinkedIn Posts",
+        "Visual Styling Theme",
+        "Growth Tips for Consistency"
       ],
       buttonText: "Get Started",
-      isPopular: true
+      isPopular: true,
+      id: "standard"
     },
     {
-      name: "Enterprise",
-      price: "Custom",
-      period: "Contact for pricing", 
-      description: "Complete solution for teams and organizations",
+      name: "🚀 Premium Plan",
+      price: "₹999",
+      period: "Monthly", 
+      description: "Ideal for those who want long-term impact & weekly growth.",
       features: [
-        "Everything in Professional",
-        "Team training programs",
-        "Company page optimization",
-        "Employee advocacy programs",
-        "Dedicated account manager",
-        "Custom reporting dashboard"
+        "Everything in Standard",
+        "12 Ghostwritten LinkedIn Posts",
+        "Weekly Strategy Check-ins",
+        "DM + Connection Plan",
+        "Personalized Design Tweaks"
       ],
-      buttonText: "Contact Sales",
-      isPopular: false
+      buttonText: "Get Started",
+      isPopular: false,
+      id: "premium"
     }
   ];
 
@@ -106,6 +107,7 @@ export default function PricingSection() {
               </ul>
               
               <button 
+                onClick={() => navigateTo('register')}
                 className={`w-full px-6 py-4 rounded-lg font-semibold transition-all duration-200 ${
                   plan.isPopular 
                     ? 'bg-white text-blue-600 hover:bg-blue-50' 

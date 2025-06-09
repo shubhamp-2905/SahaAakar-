@@ -1,7 +1,8 @@
-import { Play } from 'lucide-react';
 import { useAnimatedCounter } from '../hooks/useAnimatedCounter';
+import { useRouter } from '../hooks/useRouter';
 
 export default function HeroSection() {
+  const { navigateTo } = useRouter();
   const profilesCount = useAnimatedCounter(100, 2000);
   const successRate = useAnimatedCounter(95, 2000, '%');
 
@@ -21,7 +22,7 @@ export default function HeroSection() {
             
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
               <button 
-                onClick={() => window.location.href = '#/register'}
+                onClick={() => navigateTo('register')}
                 className="btn-primary"
               >
                 Start Growing Today

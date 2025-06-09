@@ -65,10 +65,10 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl font-bold text-gray-800 mb-6">
-              About <span className="gradient-text">SahaAakar</span>
+              🚀 About <span className="gradient-text">SahaAakar</span>
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed">
-              We're a team of LinkedIn experts dedicated to helping professionals and businesses unlock the full potential of their LinkedIn presence. Since 2020, we've helped over 10,000 professionals transform their careers through strategic LinkedIn growth.
+              Let's be real — your LinkedIn shouldn't look like a boring resume. At SahaAakar, we help students and early pros turn their profiles into opportunity magnets. From writing scroll-stopping headlines to designing banners that actually make people click — we make your online presence unforgettable. Because in today's world, your profile is your pitch — and we make sure it hits the mark.
             </p>
           </div>
         </div>
@@ -80,16 +80,16 @@ export default function AboutPage() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl font-bold text-gray-800 mb-6">
-                Our <span className="gradient-text">Story</span>
+                ✨ Our <span className="gradient-text">Story</span>
               </h2>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                Founded in 2020 with a simple mission: to democratize professional networking and help everyone leverage LinkedIn's power for career growth. What started as a small consulting practice has grown into a comprehensive LinkedIn growth agency.
+                It all started with a simple realization — most students and young professionals have great potential, but their LinkedIn profiles just don't show it.
               </p>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                Our founders recognized that while LinkedIn is the world's largest professional network, most professionals weren't maximizing its potential. We set out to change that by providing expert guidance, proven strategies, and measurable results.
+                We were in the same shoes once — confused about how to stand out, tired of watching others get noticed for opportunities we were equally capable of. So, we built SahaAakar — a space where personal branding becomes simple, smart, and authentic.
               </p>
               <p className="text-gray-600 leading-relaxed">
-                Today, we've helped thousands of professionals across industries transform their LinkedIn presence, with an average growth rate of 500% and a 95% success rate in achieving client goals.
+                From helping friends rewrite their bios to now crafting digital identities that open doors — our journey is proof that with the right presence, anyone can grow. We're not just a branding agency. We're your creative team, your strategist, and your biggest cheerleader — all rolled into one.
               </p>
             </div>
             <div className="lg:pl-12">
