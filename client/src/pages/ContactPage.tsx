@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Mail, Phone, MapPin, Clock, Linkedin, Twitter, Instagram, ChevronDown } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -13,6 +14,9 @@ export default function ContactPage() {
   });
 
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -22,33 +26,115 @@ export default function ContactPage() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+    setIsSubmitting(true);
+    setSubmitMessage('');
+
     // Basic validation
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.message) {
-      alert('Please fill in all required fields.');
+      setSubmitMessage('Please fill in all required fields.');
+      setIsSubmitting(false);
       return;
     }
     
     if (!formData.acceptTerms) {
-      alert('Please accept the Privacy Policy and Terms of Service.');
+      setSubmitMessage('Please accept the Privacy Policy and Terms of Service.');
+      setIsSubmitting(false);
       return;
     }
-    
-    // Form submission logic would go here
-    alert('Thank you for your message! We\'ll get back to you within 24 hours.');
-    
-    // Reset form
-    setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      service: '',
-      message: '',
-      acceptTerms: false
-    });
+
+    try {
+      // EmailJS configuration from Vite environment variables - using different template for contact
+      const emailjsServiceId = import.meta.env.VITE_CONTACT_EMAILJS_SERVICE_ID;
+      const emailjsTemplateId = import.meta.env.VITE_CONTACT_EMAILJS_TEMPLATE_ID;
+      const emailjsPublicKey = import.meta.env.VITE_CONTACT_EMAILJS_PUBLIC_KEY;
+      const businessEmail = import.meta.env.VITE_BUSINESS_EMAIL || 'connect.sahaakar@gmail.com';
+
+      // Enhanced validation with specific error messages
+      if (!emailjsServiceId) {
+        console.error('VITE_CONTACT_EMAILJS_SERVICE_ID is missing');
+        setSubmitMessage('Email service configuration error: Service ID missing. Please contact support.');
+        return;
+      }
+
+      if (!emailjsTemplateId) {
+        console.error('VITE_CONTACT_EMAILJS_TEMPLATE_ID is missing');
+        setSubmitMessage('Email service configuration error: Template ID missing. Please contact support.');
+        return;
+      }
+
+      if (!emailjsPublicKey) {
+        console.error('VITE_CONTACT_EMAILJS_PUBLIC_KEY is missing');
+        setSubmitMessage('Email service configuration error: Public key missing. Please contact support.');
+        return;
+      }
+
+      // Initialize EmailJS
+      emailjs.init(emailjsPublicKey);
+
+      // Prepare template parameters for EmailJS
+      const templateParams = {
+        from_name: `${formData.firstName} ${formData.lastName}`,
+        from_email: formData.email,
+        phone: formData.phone || 'Not provided',
+        service_interest: formData.service || 'General Inquiry',
+        message: formData.message,
+        to_email: businessEmail,
+        reply_to: formData.email,
+        subject: `Contact Form Inquiry from ${formData.firstName} ${formData.lastName}`,
+        inquiry_type: 'Contact Form Submission'
+      };
+
+      console.log('Sending contact email with params:', templateParams);
+
+      // Send email using EmailJS
+      const response = await emailjs.send(
+        emailjsServiceId,
+        emailjsTemplateId,
+        templateParams
+      );
+
+      console.log('EmailJS response:', response);
+
+      if (response.status === 200) {
+        setIsSubmitted(true);
+        setSubmitMessage('Thank you for your message! We\'ll get back to you within 24 hours.');
+        
+        // Reset form on success
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          service: '',
+          message: '',
+          acceptTerms: false
+        });
+      } else {
+        console.error('EmailJS failed with status:', response.status);
+        setSubmitMessage('Message sending failed. Please try again or contact support directly.');
+      }
+    } catch (error) {
+      console.error('Contact form error details:', error);
+      
+      // More specific error handling
+      if (error instanceof Error) {
+        if (error.message.includes('Failed to fetch')) {
+          setSubmitMessage('Network error. Please check your internet connection and try again.');
+        } else if (error.message.includes('Invalid template ID')) {
+          setSubmitMessage('Email template configuration error. Please contact support.');
+        } else if (error.message.includes('Invalid service ID')) {
+          setSubmitMessage('Email service configuration error. Please contact support.');
+        } else {
+          setSubmitMessage(`Message sending failed: ${error.message}. Please try again or contact support.`);
+        }
+      } else {
+        setSubmitMessage('Message sending failed due to an unexpected error. Please try again or contact support.');
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const faqs = [
@@ -94,6 +180,36 @@ export default function ContactPage() {
         </div>
       </section>
 
+      {/* Success Message */}
+      {isSubmitted && (
+        <section className="py-12 bg-green-50">
+          <div className="container mx-auto px-4">
+            <div className="max-w-2xl mx-auto text-center">
+              <div className="bg-white p-8 rounded-2xl shadow-lg">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-2">Message Sent Successfully!</h2>
+                <p className="text-gray-600 mb-6">
+                  Thank you for reaching out. We'll get back to you within 24 hours.
+                </p>
+                <button
+                  onClick={() => {
+                    setIsSubmitted(false);
+                    setSubmitMessage('');
+                  }}
+                  className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-200"
+                >
+                  Send Another Message
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Contact Form and Info Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
@@ -101,6 +217,13 @@ export default function ContactPage() {
             {/* Contact Form */}
             <div className="bg-gray-50 p-8 rounded-2xl">
               <h2 className="text-3xl font-bold text-gray-800 mb-6">Send Us a Message</h2>
+              
+              {submitMessage && !isSubmitted && (
+                <div className={`p-4 rounded-lg mb-6 ${submitMessage.includes('Thank you') || submitMessage.includes('successful') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                  {submitMessage}
+                </div>
+              )}
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
@@ -216,9 +339,10 @@ export default function ContactPage() {
                 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-800 text-white px-8 py-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-200"
+                  disabled={isSubmitting}
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-800 text-white px-8 py-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-200 disabled:opacity-50"
                 >
-                  Send Message
+                  {isSubmitting ? 'Sending Message...' : 'Send Message'}
                 </button>
               </form>
             </div>
@@ -240,8 +364,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-bold text-gray-800 mb-1">Email Us</h3>
-                    <p className="text-gray-600">hello@sahaAakar.com</p>
-                    <p className="text-gray-600">support@sahaAakar.com</p>
+                    <p className="text-gray-600">connect.sahaakar@gmail.com</p>
+                    {/* <p className="text-gray-600">support@sahaAakar.com</p> */}
                   </div>
                 </div>
 
@@ -251,8 +375,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-bold text-gray-800 mb-1">Call Us</h3>
-                    <p className="text-gray-600">+91 98765 43210</p>
-                    <p className="text-gray-600">+91 87654 32109</p>
+                    <p className="text-gray-600">+91 84460 05148</p>
+                    <p className="text-gray-600">+91 96990 83147</p>
                   </div>
                 </div>
 
@@ -261,11 +385,10 @@ export default function ContactPage() {
                     <MapPin className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-800 mb-1">Visit Us</h3>
+                    <h3 className="font-bold text-gray-800 mb-1">Location</h3>
                     <p className="text-gray-600">
-                      123 Business Center,<br />
-                      Sector 15, Gurgaon,<br />
-                      Haryana 122001, India
+                      Nashik, Maharashtra<br />
+                      India<br />
                     </p>
                   </div>
                 </div>
@@ -288,19 +411,19 @@ export default function ContactPage() {
                 <h3 className="font-bold text-gray-800 mb-4">Follow Us</h3>
                 <div className="flex gap-4">
                   <a
-                    href="#"
+                    href="https://www.linkedin.com/in/sakshi1008/"
                     className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white hover:bg-blue-700 transition-colors"
                     aria-label="LinkedIn"
                   >
                     <Linkedin className="w-6 h-6" />
                   </a>
-                  <a
+                  {/* <a
                     href="#"
                     className="w-12 h-12 bg-blue-400 rounded-lg flex items-center justify-center text-white hover:bg-blue-500 transition-colors"
                     aria-label="Twitter"
                   >
                     <Twitter className="w-6 h-6" />
-                  </a>
+                  </a> */}
                   <a
                     href="#"
                     className="w-12 h-12 bg-pink-600 rounded-lg flex items-center justify-center text-white hover:bg-pink-700 transition-colors"

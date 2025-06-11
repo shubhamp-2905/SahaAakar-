@@ -3,23 +3,23 @@ import { Star } from 'lucide-react';
 export default function TestimonialsSection() {
   const testimonials = [
     {
-      name: "Anonymous Client",
+      name: "Aaditya Kulkarni",
       role: "Software Engineering Student", 
-      initials: "AC",
+      initials: "AK",
       text: "SahaAakar helped me land my dream internship! My profile went from basic to professional, and recruiters started reaching out within weeks.",
       bgColor: "from-blue-600 to-blue-800"
     },
     {
-      name: "Anonymous Client",
+      name: "Shruti Sharma",
       role: "Marketing Graduate",
-      initials: "AC", 
+      initials: "SS", 
       text: "I was struggling to get noticed by companies. After SahaAakar optimized my profile, I got interview calls from 3 top companies in just one month!",
       bgColor: "from-purple-600 to-purple-800"
     },
     {
-      name: "Anonymous Client",
+      name: "Rohan Mehta",
       role: "Business Student",
-      initials: "AC",
+      initials: "RM",
       text: "The content they created for me was amazing. My posts started getting hundreds of likes and comments. It really helped build my personal brand.",
       bgColor: "from-green-600 to-green-800"
     }

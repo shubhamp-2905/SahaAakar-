@@ -6,7 +6,7 @@ export default function PricingSection() {
   
   const plans = [
     {
-      name: "💫 Basic Plan",
+      name: " Basic Plan",
       price: "₹499",
       period: "One-time",
       description: "Perfect for beginners who want a polished presence.",
@@ -20,7 +20,7 @@ export default function PricingSection() {
       id: "basic"
     },
     {
-      name: "🌟 Standard Plan", 
+      name: " Standard Plan", 
       price: "₹749",
       period: "Monthly",
       description: "Best for individuals ready to start building authority.",
@@ -35,7 +35,7 @@ export default function PricingSection() {
       id: "standard"
     },
     {
-      name: "🚀 Premium Plan",
+      name: " Premium Plan",
       price: "₹999",
       period: "Monthly", 
       description: "Ideal for those who want long-term impact & weekly growth.",

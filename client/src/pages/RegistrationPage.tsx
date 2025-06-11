@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from '../hooks/useRouter';
+import emailjs from '@emailjs/browser';
 
 export default function RegistrationPage() {
   const { navigateTo } = useRouter();
@@ -16,6 +17,7 @@ export default function RegistrationPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const plans = [
     {
@@ -56,6 +58,8 @@ export default function RegistrationPage() {
     }
   ];
 
+  const selectedPlanDetails = plans.find(plan => plan.id === formData.selectedPlan);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -70,36 +74,135 @@ export default function RegistrationPage() {
     setMessage('');
 
     try {
-      const response = await fetch('/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      // EmailJS configuration from Vite environment variables
+      const emailjsServiceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const emailjsTemplateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const emailjsPublicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+      const businessEmail = import.meta.env.VITE_BUSINESS_EMAIL || 'connect.sahaakar@gmail.com';
 
-      const data = await response.json();
-      setMessage(data.message);
-      
-      // Reset form on success
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        linkedinUrl: '',
-        currentTitle: '',
-        company: '',
-        goals: '',
-        selectedPlan: 'basic'
-      });
+      // Enhanced validation with specific error messages
+      if (!emailjsServiceId) {
+        console.error('VITE_EMAILJS_SERVICE_ID is missing');
+        setMessage('Email service configuration error: Service ID missing. Please contact support.');
+        return;
+      }
+
+      if (!emailjsTemplateId) {
+        console.error('VITE_EMAILJS_TEMPLATE_ID is missing');
+        setMessage('Email service configuration error: Template ID missing. Please contact support.');
+        return;
+      }
+
+      if (!emailjsPublicKey) {
+        console.error('VITE_EMAILJS_PUBLIC_KEY is missing');
+        setMessage('Email service configuration error: Public key missing. Please contact support.');
+        return;
+      }
+
+      // Initialize EmailJS (this is crucial!)
+      emailjs.init(emailjsPublicKey);
+
+      // Prepare template parameters for EmailJS
+      const templateParams = {
+        from_name: `${formData.firstName} ${formData.lastName}`,
+        from_email: formData.email,
+        phone: formData.phone || 'Not provided',
+        linkedin_url: formData.linkedinUrl || 'Not provided',
+        current_title: formData.currentTitle || 'Not provided',
+        company: formData.company || 'Not provided',
+        goals: formData.goals || 'Not provided',
+        selected_plan: selectedPlanDetails?.name,
+        plan_price: selectedPlanDetails?.price,
+        plan_description: selectedPlanDetails?.description,
+        plan_features: selectedPlanDetails?.features.join(', '),
+        to_email: businessEmail,
+        message: `New registration from ${formData.firstName} ${formData.lastName} for ${selectedPlanDetails?.name} (${selectedPlanDetails?.price})`
+      };
+
+      console.log('Sending email with params:', templateParams);
+
+      // Send email using EmailJS with better error handling
+      const response = await emailjs.send(
+        emailjsServiceId,
+        emailjsTemplateId,
+        templateParams
+      );
+
+      console.log('EmailJS response:', response);
+
+      if (response.status === 200) {
+        setIsSubmitted(true);
+        setMessage('Thank you for your request. We will reach you soon!');
+        
+        // Reset form on success
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          linkedinUrl: '',
+          currentTitle: '',
+          company: '',
+          goals: '',
+          selectedPlan: 'basic'
+        });
+      } else {
+        console.error('EmailJS failed with status:', response.status);
+        setMessage('Registration failed. Please try again or contact support.');
+      }
     } catch (error) {
-      console.error('Registration error:', error);
-      setMessage('Registration failed. Please try again.');
+      console.error('Registration error details:', error);
+      
+      // More specific error handling
+      if (error instanceof Error) {
+        if (error.message.includes('Failed to fetch')) {
+          setMessage('Network error. Please check your internet connection and try again.');
+        } else if (error.message.includes('Invalid template ID')) {
+          setMessage('Email template configuration error. Please contact support.');
+        } else if (error.message.includes('Invalid service ID')) {
+          setMessage('Email service configuration error. Please contact support.');
+        } else {
+          setMessage(`Registration failed: ${error.message}. Please try again or contact support.`);
+        }
+      } else {
+        setMessage('Registration failed due to an unexpected error. Please try again or contact support.');
+      }
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  // Show thank you message after successful submission
+  if (isSubmitted) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white pt-32 pb-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto text-center">
+            <div className="bg-white p-12 rounded-2xl shadow-lg">
+              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <h1 className="text-4xl font-bold text-gray-800 mb-4">Thank You!</h1>
+              <p className="text-xl text-gray-600 mb-8">
+                Your registration has been received successfully. We will reach out to you soon to get started on your LinkedIn growth journey.
+              </p>
+              <button
+                onClick={() => {
+                  setIsSubmitted(false);
+                  setMessage('');
+                }}
+                className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-200"
+              >
+                Submit Another Request
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white pt-32 pb-20">
@@ -119,8 +222,8 @@ export default function RegistrationPage() {
             <div className="bg-white p-8 rounded-2xl shadow-lg">
               <h2 className="text-3xl font-bold text-gray-800 mb-6">Get Started</h2>
               
-              {message && (
-                <div className={`p-4 rounded-lg mb-6 ${message.includes('successful') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+              {message && !isSubmitted && (
+                <div className={`p-4 rounded-lg mb-6 ${message.includes('successful') || message.includes('Thank you') ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                   {message}
                 </div>
               )}
@@ -260,6 +363,16 @@ export default function RegistrationPage() {
                       </option>
                     ))}
                   </select>
+                </div>
+
+                {/* Selected Plan Summary */}
+                <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                  <h4 className="font-semibold text-blue-800 mb-2">Selected Plan Summary:</h4>
+                  <div className="text-blue-700">
+                    <p className="font-medium">{selectedPlanDetails?.name}</p>
+                    <p className="text-lg font-bold text-blue-600">{selectedPlanDetails?.price}</p>
+                    <p className="text-sm mt-1">{selectedPlanDetails?.description}</p>
+                  </div>
                 </div>
 
                 <button

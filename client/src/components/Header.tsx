@@ -20,7 +20,7 @@ export default function Header() {
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'About' },
     { id: 'services', label: 'Services' },
-    { id: 'blog', label: 'Blog' },
+    // { id: 'blog', label: 'Blog' },
     { id: 'contact', label: 'Contact' },
   ];
 
@@ -63,12 +63,12 @@ export default function Header() {
 
           {/* Desktop CTA Buttons */}
           <div className="hidden lg:flex items-center space-x-4">
-            <button 
+            {/* <button 
               onClick={() => alert('Login functionality coming soon!')}
               className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
             >
               Login
-            </button>
+            </button> */}
             <button 
               onClick={() => handleNavClick('register')}
               className="btn-primary"
@@ -107,12 +107,12 @@ export default function Header() {
                 </button>
               ))}
               <div className="pt-4 space-y-2">
-                <button 
+                {/* <button 
                   onClick={() => alert('Login functionality coming soon!')}
                   className="block w-full text-left text-gray-700 hover:text-blue-600 font-medium transition-colors"
                 >
                   Login
-                </button>
+                </button> */}
                 <button 
                   onClick={() => handleNavClick('register')}
                   className="block w-full btn-primary"

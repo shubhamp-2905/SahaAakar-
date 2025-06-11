@@ -21,21 +21,21 @@ export default function Footer() {
             </p>
             <div className="flex gap-4">
               <a
-                href="#"
+                href="https://www.linkedin.com/in/sakshi1008/"
                 className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a
-                href="#"
+              {/* <a
+                href=""
                 className="w-10 h-10 bg-blue-400 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors"
                 aria-label="Twitter"
               >
                 <Twitter className="w-5 h-5" />
-              </a>
+              </a> */}
               <a
-                href="#"
+                href=""
                 className="w-10 h-10 bg-pink-600 rounded-full flex items-center justify-center hover:bg-pink-700 transition-colors"
                 aria-label="Instagram"
               >
@@ -151,18 +151,17 @@ export default function Footer() {
             <div className="space-y-3 text-gray-300">
               <div className="flex items-center gap-2">
                 <Mail className="w-4 h-4" />
-                <span>hello@sahaAakar.com</span>
+                <span>connect.sahaakar@gmail.com</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />
-                <span>+91 98765 43210</span>
+                <span>+91 84460 05148</span>
               </div>
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 mt-1" />
                 <span>
-                  123 Business Center,<br />
-                  Sector 15, Gurgaon,<br />
-                  Haryana 122001, India
+                  Nashik, Maharashtra, <br />
+                  India<br />
                 </span>
               </div>
             </div>
